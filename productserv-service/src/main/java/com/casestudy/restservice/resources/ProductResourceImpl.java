@@ -48,7 +48,7 @@ public class ProductResourceImpl implements ProductResource {
                 prod.setCurrencyCode(pricingInformationProduct.getCurrency().getCurrentCode());
                 productInformationService.updateProductInformation(prod);
                 logger.info("Returning Response");
-                return Response.ok().build();
+                return Response.status(204).build();
             } else {
                 logger.info("Returning Failure Response due to request body not having necessary details");
                 return Response.status(400).entity("Product Information missing in request").build();
@@ -70,7 +70,7 @@ public class ProductResourceImpl implements ProductResource {
                 prod.setCurrencyCode(pricingInformationProduct.getCurrency().getCurrentCode());
                 productInformationService.insertProductInformation(prod);
                 logger.info("Returning Response");
-                return Response.ok().build();
+                return Response.status(201).build();
             } else {
                 return Response.status(400).entity("Product Information missing in request").build();
             }
@@ -85,7 +85,7 @@ public class ProductResourceImpl implements ProductResource {
         try {
             productInformationService.deleteProductInformation(productId);
             logger.info("Returning Response");
-            return Response.ok().build();
+            return Response.status(204).build();
         } catch (ProductServiceException ex) {
             logger.info("Returning Failure Response due to  " + ex.getIssue());
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.getIssue()).build();

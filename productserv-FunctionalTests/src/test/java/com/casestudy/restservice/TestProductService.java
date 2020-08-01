@@ -79,7 +79,7 @@ public class TestProductService {
 
         String request = dataproperties.getProperty("UPDATE_REQUEST_BODY");
         Response response = productServiceClient.path("products/" + dataproperties.getProperty("UPDATE_PRODUCT_ID") + "/").request(MediaType.APPLICATION_JSON_TYPE).accept(MediaType.APPLICATION_JSON_TYPE).put(Entity.entity(request, MediaType.APPLICATION_JSON));
-        if (response != null && response.getStatus() == Response.Status.OK.getStatusCode()) {
+        if (response != null && response.getStatus() == 204) {
             Reporter.log("Product update call passed with status " + response.getStatus(), true);
         } else {
             logger.info("Product update call failed with status ", response.getStatus());
@@ -94,7 +94,7 @@ public class TestProductService {
     public void createProduct() {
         String request = dataproperties.getProperty("CREATE_REQUEST_BODY");
         Response response = productServiceClient.path("products/").request(MediaType.APPLICATION_JSON_TYPE).accept(MediaType.APPLICATION_JSON_TYPE).post(Entity.entity(request, MediaType.APPLICATION_JSON));
-        if (response != null && response.getStatus() == Response.Status.OK.getStatusCode()) {
+        if (response != null && response.getStatus() == 201) {
             Reporter.log("Product create call passed with status " + response.getStatus(), true);
         } else {
             logger.info("Product get call failed with status ", response.getStatus());
@@ -107,7 +107,7 @@ public class TestProductService {
     @Test
     public void deleteProduct() {
         Response response = productServiceClient.path("products/" + dataproperties.getProperty("DELETE_PRODUCT_ID") + "/").request(MediaType.APPLICATION_JSON_TYPE).accept(MediaType.APPLICATION_JSON_TYPE).delete();
-        if (response != null && response.getStatus() == Response.Status.OK.getStatusCode()) {
+        if (response != null && response.getStatus() == 204) {
             Reporter.log("Product get call passed with status " + response.getStatus(), true);
         } else {
             logger.info("Product get call failed with status ", response.getStatus());

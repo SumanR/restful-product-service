@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 import javax.net.ssl.*;
@@ -15,8 +17,6 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
@@ -33,6 +33,9 @@ public class RedSkyProductInfoRestClient {
     @Autowired
     ObjectMapper objectMapper;
 
+    @Autowired
+    ApplicationContext context;
+
     /**
      * this method fetches the redsky response from json file and deserializes it
      *
@@ -40,9 +43,9 @@ public class RedSkyProductInfoRestClient {
      * @return RedSkyProducts Response object
      */
     public RedSkyProducts queryRedSky(String productId) throws IOException {
-        String pathString = this.getClass().getClassLoader().getResource("redSkyProduct.json").getPath();
-        String jsonResponse = new String(Files.readAllBytes(Paths.get(pathString)));
-        RedSkyProducts redSkyProducts = objectMapper.readValue(jsonResponse, RedSkyProducts.class);
+
+        Resource resource = context.getResource("classpath:redSkyProduct.json");
+        RedSkyProducts redSkyProducts = objectMapper.readValue(resource.getInputStream(), RedSkyProducts.class);
 
         return redSkyProducts;
 
