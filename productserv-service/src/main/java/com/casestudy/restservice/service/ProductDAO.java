@@ -13,7 +13,7 @@ import java.util.List;
 //import java.util.UUID;
 
 @Service
-public class ProductService {
+public class ProductService { //TODO: rename to product cacheDAO
 
     @Autowired
     private RedisTemplate<String, Product> productTemplate;
