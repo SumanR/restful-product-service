@@ -18,10 +18,6 @@ public class Product {
         return item;
     }
 
-    public void setItems(Item item) {
-        this.item = item;
-    }
-
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this);

@@ -1,4 +1,4 @@
-package com.casestudy.serviceContracts.exception;
+package com.casestudy.restservice.exception;
 
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -19,7 +19,7 @@ public class ProductServiceException extends Exception {
         super(throwable);
     }
 
-    public ProductServiceException(Throwable throwable,String message) {
+    public ProductServiceException(Throwable throwable, String message) {
         super(message, throwable);
         this.setIssue(message);
     }

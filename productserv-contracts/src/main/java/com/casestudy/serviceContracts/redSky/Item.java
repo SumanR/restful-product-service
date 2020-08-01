@@ -17,10 +17,6 @@ public class Item {
         return productDescription;
     }
 
-    public void setProductDescription(ProductDescription productDescription) {
-        this.productDescription = productDescription;
-    }
-
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this);

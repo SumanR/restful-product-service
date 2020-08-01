@@ -1,14 +1,11 @@
 package com.casestudy.restservice;
 
-import com.casestudy.serviceContracts.productserv.PricingInformationProduct;
-import com.casestudy.serviceContracts.productserv.ProductPricing;
-import com.casestudy.serviceContracts.productserv.ProductPricingInformationError;
-import com.casestudy.serviceContracts.redSky.RedSkyProducts;
+import com.casestudy.serviceContracts.productserv.ProductPricingInformation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.BeforeClass;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
 
 import javax.ws.rs.client.Client;
@@ -50,76 +47,74 @@ public class TestProductService {
 
     @Test
     public void testGetProducts() {
-        Response response = productServiceClient.path("product/" + dataproperties.getProperty("GET_PRODUCT_ID") + "/").request(MediaType.APPLICATION_JSON_TYPE).accept(MediaType.APPLICATION_JSON_TYPE).get();
+        Response response = productServiceClient.path("products/" + dataproperties.getProperty("GET_PRODUCT_ID") + "/").request(MediaType.APPLICATION_JSON_TYPE).accept(MediaType.APPLICATION_JSON_TYPE).get();
         if (response != null && response.getStatus() == Response.Status.OK.getStatusCode()) {
             Reporter.log("Product get call passed with status " + response.getStatus(), true);
-            PricingInformationProduct pricingInformationProduct = response.readEntity(PricingInformationProduct.class);
+            ProductPricingInformation pricingInformationProduct = response.readEntity(ProductPricingInformation.class);
             Reporter.log(pricingInformationProduct.toString(), true);
             Assert.assertTrue(pricingInformationProduct.getId().equals(dataproperties.getProperty("GET_PRODUCT_ID")));
         } else {
             logger.info("Product get call failed with status ", response.getStatus());
             Reporter.log("Product get call failed with status  " + response.getStatus() + " with reason " + response.getStatusInfo(), true);
-            ProductPricingInformationError error = response.readEntity(ProductPricingInformationError.class);
-            logger.info("Product get call failed with status ", error.toString());
-            Reporter.log("Product get call failed with status " + error.toString(), true);
             Assert.fail();
         }
 
     }
 
-    // @Test
+    @Test
+    public void testGetProductsFailure() {
+        Response response = productServiceClient.path("products/" + dataproperties.getProperty("GET_PRODUCT_ID") + "99/").request(MediaType.APPLICATION_JSON_TYPE).accept(MediaType.APPLICATION_JSON_TYPE).get();
+        if (response != null && response.getStatus() == Response.Status.OK.getStatusCode()) {
+            Reporter.log("Product get call passed with status " + response.getStatus(), true);
+            Assert.fail();
+        } else {
+            logger.info("Product get call failed with status ", response.getStatus());
+            Reporter.log("Product get call failed with status  " + response.getStatus() + " with reason " + response.getStatusInfo(), true);
+        }
+
+    }
+
+    @Test
     public void updateGetProducts() {
 
         String request = dataproperties.getProperty("UPDATE_REQUEST_BODY");
-        //PricingInformationProduct product = DeserializationUtil.getDeserializedObject(request, PricingInformationProduct.class);
-        Response response = productServiceClient.path("product/" + dataproperties.getProperty("UPDATE_PRODUCT_ID") + "/").request(MediaType.APPLICATION_JSON_TYPE).accept(MediaType.APPLICATION_JSON_TYPE).put(Entity.entity(request, MediaType.APPLICATION_JSON));
+        Response response = productServiceClient.path("products/" + dataproperties.getProperty("UPDATE_PRODUCT_ID") + "/").request(MediaType.APPLICATION_JSON_TYPE).accept(MediaType.APPLICATION_JSON_TYPE).put(Entity.entity(request, MediaType.APPLICATION_JSON));
         if (response != null && response.getStatus() == Response.Status.OK.getStatusCode()) {
-            Reporter.log("Product get call passed with status " + response.getStatus(), true);
+            Reporter.log("Product update call passed with status " + response.getStatus(), true);
         } else {
-            logger.info("Product get call failed with status ", response.getStatus());
-            Reporter.log("Product get call failed with status  " + response.getStatus() + " with reason " + response.getStatusInfo(), true);
-            ProductPricingInformationError error = response.readEntity(ProductPricingInformationError.class);
-            logger.info("Product get call failed with status ", error.toString());
-            Reporter.log("Product get call failed with status " + error.toString(), true);
+            logger.info("Product update call failed with status ", response.getStatus());
+            Reporter.log("Product update call failed with status  " + response.getStatus() + " with reason " + response.getStatusInfo(), true);
+            Assert.fail();
         }
-        Assert.fail();
+
     }
 
 
-    // @Test
-    public void postGetProducts() {
-        Response response = productServiceClient.path("product/" + dataproperties.getProperty("GET_PRODUCT_ID") + "/").request(MediaType.APPLICATION_JSON_TYPE).accept(MediaType.APPLICATION_JSON_TYPE).get();
+    @Test
+    public void createProduct() {
+        String request = dataproperties.getProperty("CREATE_REQUEST_BODY");
+        Response response = productServiceClient.path("products/").request(MediaType.APPLICATION_JSON_TYPE).accept(MediaType.APPLICATION_JSON_TYPE).post(Entity.entity(request, MediaType.APPLICATION_JSON));
         if (response != null && response.getStatus() == Response.Status.OK.getStatusCode()) {
-            Reporter.log("Product get call passed with status " + response.getStatus(), true);
-            PricingInformationProduct pricingInformationProduct = response.readEntity(PricingInformationProduct.class);
-            Reporter.log(pricingInformationProduct.toString(), true);
-            Assert.assertTrue(pricingInformationProduct.getId().equals(dataproperties.getProperty("GET_PRODUCT_ID")));
+            Reporter.log("Product create call passed with status " + response.getStatus(), true);
         } else {
             logger.info("Product get call failed with status ", response.getStatus());
             Reporter.log("Product get call failed with status  " + response.getStatus() + " with reason " + response.getStatusInfo(), true);
-            ProductPricingInformationError error = response.readEntity(ProductPricingInformationError.class);
-            logger.info("Product get call failed with status ", error.toString());
-            Reporter.log("Product get call failed with status " + error.toString(), true);
+            Assert.fail();
         }
-        Assert.fail();
+
     }
 
-    // @Test
-    public void deleteGetProducts() {
-        Response response = productServiceClient.path("product/" + dataproperties.getProperty("GET_PRODUCT_ID") + "/").request(MediaType.APPLICATION_JSON_TYPE).accept(MediaType.APPLICATION_JSON_TYPE).get();
+    @Test
+    public void deleteProduct() {
+        Response response = productServiceClient.path("products/" + dataproperties.getProperty("DELETE_PRODUCT_ID") + "/").request(MediaType.APPLICATION_JSON_TYPE).accept(MediaType.APPLICATION_JSON_TYPE).delete();
         if (response != null && response.getStatus() == Response.Status.OK.getStatusCode()) {
             Reporter.log("Product get call passed with status " + response.getStatus(), true);
-            PricingInformationProduct pricingInformationProduct = response.readEntity(PricingInformationProduct.class);
-            Reporter.log(pricingInformationProduct.toString(), true);
-            Assert.assertTrue(pricingInformationProduct.getId().equals(dataproperties.getProperty("GET_PRODUCT_ID")));
         } else {
             logger.info("Product get call failed with status ", response.getStatus());
             Reporter.log("Product get call failed with status  " + response.getStatus() + " with reason " + response.getStatusInfo(), true);
-            ProductPricingInformationError error = response.readEntity(ProductPricingInformationError.class);
-            logger.info("Product get call failed with status ", error.toString());
-            Reporter.log("Product get call failed with status " + error.toString(), true);
+            Assert.fail();
         }
-        Assert.fail();
+
     }
 
 }

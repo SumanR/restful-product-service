@@ -3,11 +3,13 @@ package com.casestudy.serviceContracts.productserv;
 import com.fasterxml.jackson.annotation.*;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 
+import java.io.Serializable;
+
 @JsonPropertyOrder({"id","name","currency"})
 @JsonRootName(value = "product")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PricingInformationProduct extends ProductPricing {
+public class ProductPricingInformation implements Serializable {
 
     @JsonProperty("id")
     String id;

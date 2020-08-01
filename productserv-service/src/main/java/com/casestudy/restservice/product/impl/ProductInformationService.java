@@ -3,8 +3,7 @@ package com.casestudy.restservice.product.impl;
 import com.casestudy.restservice.commons.RedSkyProductInfoRestClient;
 import com.casestudy.restservice.entities.Product;
 import com.casestudy.restservice.exception.ProductServiceException;
-import com.casestudy.restservice.resources.ProductResourceImpl;
-import com.casestudy.restservice.service.ProductService;
+import com.casestudy.restservice.service.IProductDAO;
 import com.casestudy.serviceContracts.productserv.PricingInformation;
 import com.casestudy.serviceContracts.productserv.ProductPricingInformation;
 import com.casestudy.serviceContracts.redSky.RedSkyProducts;
@@ -16,15 +15,22 @@ import javax.inject.Inject;
 
 
 @Component
-public class IProductInformationServiceImpl implements IProductInformationService {
+public class ProductInformationService implements IProductInformationService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProductInformationService.class);
 
     @Inject
     RedSkyProductInfoRestClient redSkyProductInfoRestClient;
-    private static final Logger LOGGER = LoggerFactory.getLogger(ProductResourceImpl.class);
 
     @Inject
-    ProductService service;
+    IProductDAO service;
 
+    /**
+     * This method helps fetch the product details from the redsky url and joins it with the pricing information from the nosql db
+     * @param productId
+     * @return
+     * @throws ProductServiceException
+     */
     public ProductPricingInformation fetchProductInformation(String productId) throws ProductServiceException {
 
         //TODO: Parallelize db fetch and client response and stitch
@@ -32,6 +38,7 @@ public class IProductInformationServiceImpl implements IProductInformationServic
             RedSkyProducts redSkyProducts = redSkyProductInfoRestClient.queryRedSky(productId);
             if (redSkyProducts != null) {
                 String title = redSkyProducts.getProduct().getItem().getProductDescription().getTitle();
+
                 //TODO : use builder and format
                 ProductPricingInformation pricingProduct = new ProductPricingInformation();
                 pricingProduct.setId(productId);
@@ -46,6 +53,7 @@ public class IProductInformationServiceImpl implements IProductInformationServic
                     pricingProduct.setCurrency(info);
                 }
                 return pricingProduct;
+
             } else {
 
                 ProductServiceException pe = new ProductServiceException();
@@ -60,6 +68,11 @@ public class IProductInformationServiceImpl implements IProductInformationServic
 
     }
 
+    /**
+     * This method helps in updating the product pricing information in the db
+     * @param product - the product to be fetched
+     * @throws ProductServiceException
+     */
     @Override
     public void updateProductInformation(Product product) throws ProductServiceException {
         try {
@@ -71,6 +84,11 @@ public class IProductInformationServiceImpl implements IProductInformationServic
         }
     }
 
+    /**
+     * This method helps in inserting a product pricing information row in the db
+     * @param prod
+     * @throws ProductServiceException
+     */
     @Override
     public void insertProductInformation(Product prod) throws ProductServiceException {
         try {
@@ -82,6 +100,11 @@ public class IProductInformationServiceImpl implements IProductInformationServic
         }
     }
 
+    /**
+     * This method helps in deleting the product pricing information in the db
+     * @param productId
+     * @throws ProductServiceException
+     */
     @Override
     public void deleteProductInformation(String productId) throws ProductServiceException {
         try {

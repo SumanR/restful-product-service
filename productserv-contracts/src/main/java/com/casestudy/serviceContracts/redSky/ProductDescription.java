@@ -16,10 +16,6 @@ public class ProductDescription {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this);

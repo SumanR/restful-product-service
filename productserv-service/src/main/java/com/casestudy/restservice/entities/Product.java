@@ -12,7 +12,6 @@ public class Product implements Serializable {
 
     String currencyCode;
 
-
     public String getProductId() {
         return productId;
     }

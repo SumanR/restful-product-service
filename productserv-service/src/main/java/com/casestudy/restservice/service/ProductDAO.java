@@ -8,17 +8,15 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.NotFoundException;
-
 import java.util.List;
-//import java.util.UUID;
 
 @Service
-public class ProductService { //TODO: rename to product cacheDAO
+public class ProductDAO implements IProductDAO {
 
     @Autowired
     private RedisTemplate<String, Product> productTemplate;
 
-    private static final String REDIS_PREFIX_USERS = "product";
+    private static final String REDIS_PREFIX_USERS = "products";
 
     private static final String REDIS_KEYS_SEPARATOR = ":";
 
@@ -28,7 +26,7 @@ public class ProductService { //TODO: rename to product cacheDAO
 
     public Product findById(final String productID) {
         final Product product = getValueOperations().get(getRedisKey(productID));
-        if(product == null) {
+        if (product == null) {
             throw new NotFoundException("Product does not exist in the DB");
         }
         return product;
@@ -45,7 +43,7 @@ public class ProductService { //TODO: rename to product cacheDAO
     }
 
     public void delete(final String productID) {
-        if(!productTemplate.delete(getRedisKey(productID))) {
+        if (!productTemplate.delete(getRedisKey(productID))) {
             throw new NotFoundException("User does not exist in the DB");
         }
     }

@@ -10,7 +10,6 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>productserv-contracts</module>
-        <module>productserv-api</module>
         <module>productserv-service</module>
         <module>productserv-FunctionalTests</module>
     </modules>

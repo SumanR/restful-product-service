@@ -7,13 +7,14 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
+import org.springframework.stereotype.Component;
 
-public class DeserializationUtil {
+
+public class DeserializationUtil { //TODO: make it into a bean
 
     static ObjectMapper jsonStringToPojoMapper;
 
     static {
-
         jsonStringToPojoMapper = new ObjectMapper();
         jsonStringToPojoMapper.registerModule(new JaxbAnnotationModule());
         jsonStringToPojoMapper.configure(JsonParser.Feature.AUTO_CLOSE_SOURCE, true);

@@ -9,17 +9,13 @@ import java.util.List;
 @JsonRootName(value = "")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class RedSkyProducts {
+public class RedSkyProducts {   //RedSkyProductResponse
 
     @JsonProperty("product")
     Product product;
 
     public Product getProduct() {
         return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
     }
 
     @Override
