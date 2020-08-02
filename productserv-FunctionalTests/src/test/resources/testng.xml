@@ -8,7 +8,7 @@
 
     <test verbose="2" name="product tests" annotations="JDK">
         <packages>
-            <package name="com.casestudy.restservice"/>
+            <package name="com.restservice"/>
         </packages>
     </test>
 </suite>
