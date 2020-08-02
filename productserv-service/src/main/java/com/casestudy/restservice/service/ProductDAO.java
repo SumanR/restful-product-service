@@ -2,18 +2,18 @@ package com.casestudy.restservice.service;
 
 
 import com.casestudy.restservice.entities.Product;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
 import javax.ws.rs.NotFoundException;
 import java.util.List;
 
 @Service
 public class ProductDAO implements IProductDAO {
 
-    @Autowired
+    @Inject
     private RedisTemplate<String, Product> productTemplate;
 
     private static final String REDIS_PREFIX_USERS = "products";

@@ -7,10 +7,9 @@ import com.casestudy.serviceContracts.productserv.ProductPricingInformation;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.validation.constraints.NotEmpty;
+import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 
 @Component
@@ -18,7 +17,7 @@ public class ProductResourceImpl implements ProductResource {
 
     private static final Logger logger = LoggerFactory.getLogger(ProductResourceImpl.class);
 
-    @Autowired
+    @Inject
     IProductInformationService productInformationService;
 
     public Response getProduct(String productId) {

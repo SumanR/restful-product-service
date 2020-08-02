@@ -27,6 +27,7 @@ public class ProductInformationService implements IProductInformationService {
 
     /**
      * This method helps fetch the product details from the redsky url and joins it with the pricing information from the nosql db
+     *
      * @param productId
      * @return
      * @throws ProductServiceException
@@ -70,6 +71,7 @@ public class ProductInformationService implements IProductInformationService {
 
     /**
      * This method helps in updating the product pricing information in the db
+     *
      * @param product - the product to be fetched
      * @throws ProductServiceException
      */
@@ -86,6 +88,7 @@ public class ProductInformationService implements IProductInformationService {
 
     /**
      * This method helps in inserting a product pricing information row in the db
+     *
      * @param prod
      * @throws ProductServiceException
      */
@@ -102,6 +105,7 @@ public class ProductInformationService implements IProductInformationService {
 
     /**
      * This method helps in deleting the product pricing information in the db
+     *
      * @param productId
      * @throws ProductServiceException
      */
