@@ -89,13 +89,17 @@ Data inserted to redis db can be cross verified using redis-cli
 # Available Endpoints
 
 method |	resource|	description |
---- | --- | --- | 
+--- | --- | :--- | 
 GET	| /products/:id	| get the product -> 200(OK), 500(internal server error) |
 POST |	/products |	creates a product in the DB -> 201(created), 500(internal server error) |
 PUT	|  /products/:id |	updates a product in the DB -> 204(updated), 500(internal server error), 400(request body not available) |
 DELETE | /products/:id | deletes a user from the DB -> 204(deleted), 500(internal server error), 400(request body not available) |
 
+# Curl Command 
 
-# Rest Controller
-
-The class ProductResource.java contains every endpoint. 
+method |	curl command |
+--- | :--- | 
+GET	|curl --location --request GET 'http://localhost:8080/products/13860428' --header 'Accept: application/json'|
+PUT | curl --location --request PUT 'http://localhost:8080/product/13860428' --header 'Accept: application/json' --header 'Content-Type: application/json' <br /> --data-raw '{  <br />    "id": "13860428",  <br />    "name": "The Big Lebowski (Blu-ray) dsadasd", <br />    "current_price": { <br />        "value": 234.4, <br />        "currency_code": "AUD" <br />    } <br />}' |
+POST | curl --location --request POST 'http://localhost:8080/products/' --header 'Accept: application/json' --header 'Content-Type: application/json' <br /> --data-raw '{ <br />    "id": "13860488", <br />    "name": "The Big Lebowski (Blu-ray) ", <br />    "current_price": { <br />        "value": 888.4, <br />        "currency_code": "SGD" <br />    } <br />}' |
+DELETE |  curl --location --request DELETE 'http://localhost:8080/products/13860488' --header 'Accept: application/json' |
