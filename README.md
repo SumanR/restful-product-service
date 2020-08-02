@@ -4,9 +4,15 @@ REST API code with Spring Boot and Redis as database.
 
 # How to Build
 
-The project builds in Maven.
+This project is a java project that builds in Maven.
+
+Prerequisites: Make sure JAVA_HOME and M2_HOME is configured and set in your PATH variable.
+
 Go to project root directory and run 
-"mvn package"
+
+```
+mvn package
+```
 
 # How to Run
 
@@ -103,3 +109,13 @@ GET	|curl --location --request GET 'http://localhost:8080/products/13860428' --h
 PUT | curl --location --request PUT 'http://localhost:8080/product/13860428' --header 'Accept: application/json' --header 'Content-Type: application/json' <br /> --data-raw '{  <br />    "id": "13860428",  <br />    "name": "The Big Lebowski (Blu-ray) dsadasd", <br />    "current_price": { <br />        "value": 234.4, <br />        "currency_code": "AUD" <br />    } <br />}' |
 POST | curl --location --request POST 'http://localhost:8080/products/' --header 'Accept: application/json' --header 'Content-Type: application/json' <br /> --data-raw '{ <br />    "id": "13860488", <br />    "name": "The Big Lebowski (Blu-ray) ", <br />    "current_price": { <br />        "value": 888.4, <br />        "currency_code": "SGD" <br />    } <br />}' |
 DELETE |  curl --location --request DELETE 'http://localhost:8080/products/13860488' --header 'Accept: application/json' |
+
+# Testing the Endpoints
+
+Make sure the Service is running in another tab. See "How to Run"
+Navigate to directory <project root directory>/productserv-FunctionalTests/ and run 
+```
+  mvn test
+```
+This would execute the GET, PUT, POST and DELETE test cases against the server
+  
