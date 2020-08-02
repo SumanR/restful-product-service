@@ -9,10 +9,11 @@ The server is available for free here: https://redis.io/download. If you use a M
 
 Once its insalled you can bring up the server using the command : `redis-server`
 
+## Running build
+
 This project is a java project that builds on Maven.
 
-## Running build
-Prerequisites: Make sure `JAVA_HOME` and `M2_HOME` is configured and set in your `PATH` variable.
+;Prerequisites: Make sure `JAVA_HOME` and `M2_HOME` is configured and set in your `PATH` variable.
 
 Run
 ```
@@ -22,6 +23,11 @@ git clone git@github.com:SumanR/restful-product-service.git
 Go to project root directory and run:
 ```
 mvn install
+```
+
+To skip tests, in case the redis server is not up and running, run:
+```
+mvn -DskipTests install
 ```
 
 ## How to Run?
