@@ -37,13 +37,6 @@
 			<version>2.3.2.RELEASE</version>
 		</dependency>
 
-		<!--<dependency>
-			<groupId>com.paypal.springboot</groupId>
-			<artifactId>resteasy-spring-boot-starter</artifactId>
-			<version>2.3.4-RELEASE</version>
-			<scope>runtime</scope>
-		</dependency> -->
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jersey</artifactId>
@@ -66,13 +59,6 @@
 			<artifactId>jedis</artifactId>
 			<version>3.1.0</version>
 		</dependency>
-
-	<!--	<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-			<scope>runtime</scope>
-		</dependency> -->
-
 
 		<dependency>
 			<groupId>javax.ws.rs</groupId>
@@ -104,19 +90,12 @@
 			<version>1</version>
 		</dependency>
 		<dependency>
-			<groupId>org.example</groupId>
-			<artifactId>productInterface</artifactId>
+			<groupId>com.casestudy</groupId>
+			<artifactId>productserv-contract</artifactId>
 			<version>1.0-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
-		<dependency>
-			<groupId>javax.ws.rs</groupId>
-			<artifactId>javax.ws.rs-api</artifactId>
-			<version>2.1.1</version>
-			<scope>compile</scope>
-		</dependency>
-
-	</dependencies>
+    </dependencies>
 
 
 	<build>

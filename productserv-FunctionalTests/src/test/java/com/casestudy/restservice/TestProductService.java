@@ -1,6 +1,5 @@
 package com.casestudy.restservice;
 
-import com.casestudy.serviceContracts.productserv.ProductPricingInformation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
@@ -50,9 +49,9 @@ public class TestProductService {
         Response response = productServiceClient.path("products/" + dataproperties.getProperty("GET_PRODUCT_ID") + "/").request(MediaType.APPLICATION_JSON_TYPE).accept(MediaType.APPLICATION_JSON_TYPE).get();
         if (response != null && response.getStatus() == Response.Status.OK.getStatusCode()) {
             Reporter.log("Product get call passed with status " + response.getStatus(), true);
-            ProductPricingInformation pricingInformationProduct = response.readEntity(ProductPricingInformation.class);
-            Reporter.log(pricingInformationProduct.toString(), true);
-            Assert.assertTrue(pricingInformationProduct.getId().equals(dataproperties.getProperty("GET_PRODUCT_ID")));
+            String stringResponse = response.readEntity(String.class); //ProductPricingInformation
+            Reporter.log(stringResponse, true);
+            Assert.assertTrue(stringResponse.equals(dataproperties.getProperty("GET_PRODUCT_RESPONSE")));
         } else {
             logger.info("Product get call failed with status ", response.getStatus());
             Reporter.log("Product get call failed with status  " + response.getStatus() + " with reason " + response.getStatusInfo(), true);
